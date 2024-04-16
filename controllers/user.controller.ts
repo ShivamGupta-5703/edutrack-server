@@ -412,7 +412,34 @@ export const deleteUser = CatchAsyncError(async (req : Request, res : Response, 
 
 
 
+// Get enrollment details for a specific course 
+export const getEnrollmentDetails = CatchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const userId = req.user?.id;
+    const courseId = req.params.courseId;
 
+    // Find user by ID and check if enrolled in the specified course
+    const user: IUser | null = await UserModel.findOne({ _id: userId, 'enrollments.courseId': courseId });
+
+    if (!user) {
+      return next(new ErrorHandler('User not enrolled in this course', 404));
+    }
+
+    // Get enrollment details for the specified course
+    const enrollment = user.enrollments.find((enrollment) => enrollment.courseId === courseId);
+
+    if (!enrollment) {
+      return next(new ErrorHandler('Enrollment details not found for this course', 404));
+    }
+
+    res.status(200).json({
+      success: true,
+      data: enrollment.students,
+    });
+  } catch (err: any) {
+    return next(new ErrorHandler(err.message, 400));
+  }
+});
 
 
 

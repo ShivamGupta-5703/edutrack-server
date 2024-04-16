@@ -2,7 +2,29 @@ require('dotenv').config();
 import bcrypt from 'bcryptjs';
 import mongoose, {Document, Model, Schema } from 'mongoose';
 import jwt from 'jsonwebtoken';
+
 const emailRegexPattern : RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+export interface IEnrollment extends Document{
+    courseId: string;
+    students: Array<{
+      name: string;
+      contactInfo: string;
+      enrollmentDate: Date;
+    }>;
+}
+
+const enrollmentSchema: Schema<IEnrollment> = new Schema({
+    courseId: String,
+    students: [
+      {
+        name: String,
+        contactInfo: String,
+        enrollmentDate: Date,
+        progress: Number,
+      },
+    ],
+});
 
 export interface IUser extends Document {
     name: string;
@@ -14,6 +36,8 @@ export interface IUser extends Document {
     },
     role: string;
     isVerified: boolean;
+    continent?: string;
+    enrollments: IEnrollment[];
     courses: Array<{courseId : string}>;
     comparePassword: (password: string) => Promise<boolean>;
     SignAccessToken: () => string;
@@ -51,6 +75,8 @@ const userSchema : Schema<IUser> = new Schema({
         type: Boolean,
         default: false
     },
+    continent: String,
+    enrollments: [enrollmentSchema],
     courses: [
         {
             courseId: String,

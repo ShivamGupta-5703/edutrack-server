@@ -1,6 +1,6 @@
 import { authorizeRoles, isAuthenticated } from './../middleware/auth';
 import express from 'express';
-import { activationUser, deleteUser, getAllUsers, getUserInfo, loginUser, logoutUser, registrationUser, socialAuth, updateAccessToken, updatePassword, updateProfilePicture, updateUserInfo, updateUserRole } from '../controllers/user.controller';
+import { activationUser, deleteUser, getAllUsers, getEnrollmentDetails, getUserInfo, loginUser, logoutUser, registrationUser, socialAuth, updateAccessToken, updatePassword, updateProfilePicture, updateUserInfo, updateUserRole } from '../controllers/user.controller';
 const userRouter = express.Router();
 
 userRouter.post('/registration', registrationUser);
@@ -21,5 +21,6 @@ userRouter.put('/update-user', isAuthenticated, authorizeRoles("admin"), updateU
 
 userRouter.delete('/delete-user/:id', isAuthenticated, authorizeRoles("admin"), deleteUser);
 
+userRouter.get('/enrollment/:courseId', isAuthenticated, getEnrollmentDetails);
 
 export default userRouter;

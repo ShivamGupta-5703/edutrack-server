@@ -53,6 +53,8 @@ interface ICourse extends Document{
     createdAt : Date;
     rating? : number;
     purchased? : number;
+    topic: string;
+    salesType: 'online' | 'classroom';
 }
 
 
@@ -141,8 +143,18 @@ const courseSchema = new Schema<ICourse>({
         type : Number,
         default : 0,
     },
+    topic: {
+        type: String,
+        required: true,
+    },
+    salesType: {
+        type: String,
+        enum: ['online', 'classroom'],
+        required: true,
+    },
 }, {timestamps : true});
 
 
 const CourseModel : Model<ICourse> = mongoose.model('Course', courseSchema);
 export default CourseModel;
+
