@@ -59,7 +59,7 @@
 1. **Clone the repository:**
 
 ```
-git clone https://github.com/ShivamGupta-5703/lms-server.git
+git clone https://github.com/ShivamGupta-5703/edutrack-server.git
 ```
 2. **Install dependencies:**
 ```
@@ -82,11 +82,11 @@ npm install
     9. ACTIVATION_TOKEN_SECRET=
 
 #### From your google account
-    10. SMTP_HOST=smtp.gamil.com
-    11. SMTP_PORT=465
-    12. SMTP_SERVICE=gmail
-    13. SMTP_MAIL=shivgupta39693@gmail.com
-    14. SMTP_PASSWORD=jvbzwrixafwxuocz
+    10. SMTP_HOST=
+    11. SMTP_PORT=
+    12. SMTP_SERVICE=
+    13. SMTP_MAIL=
+    14. SMTP_PASSWORD=
 
 #### random tokens for access and refresh tokens
     15. ACCESS_TOKEN=''
