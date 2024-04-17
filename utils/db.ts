@@ -2,7 +2,7 @@ require('dotenv').config();
 import mongoose from 'mongoose';
 
 
-const dbURL = process.env.LOCAL_DB_URL || '';
+const dbURL = process.env.DB_URL || '';
 const connectDB = async() => {
     try{
         (await mongoose.connect(dbURL).then((data:any)=>{
